@@ -1,12 +1,12 @@
 import React from 'react'
 import "./CSS/Solar.css"
-import java from "./Pics/java.svg"
-import sql from "./Pics/sql.svg"
-import react from "./Pics/react.svg"
-import js from "./Pics/js.png"
-import boot from "./Pics/boot.svg"
-import css from "./Pics/css.svg"
-import pic from "./Pics/myPic.jpg"
+import java from "./assets/java.svg"
+import sql from "./assets/sql.svg"
+import react from "./assets/react.svg"
+import js from "./assets/js.png"
+import boot from "./assets/boot.svg"
+import css from "./assets/css.svg"
+import pic from "./assets/myPic.jpg"
 const Solar = () => {
     return (
         <div>

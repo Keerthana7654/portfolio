@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "./CSS/Home.css"
 import Solar from "./Solar"
-import instagram from "./Pics/instagram.svg"
-import linkedin from "./Pics/linkedin.svg"
+import instagram from "./assets/instagram.svg"
+import linkedin from "./assets/linkedin.svg"
 
 const Home = () => {
   let downloadCV = () => {

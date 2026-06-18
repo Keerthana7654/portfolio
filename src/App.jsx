@@ -9,6 +9,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import myPic from "./assets/myPic.jpg";
 
 /* ─────────────────────────────────────────────────────────
    DESIGN TOKENS (CSS-in-JS — inline for portability)
@@ -333,7 +334,7 @@ const SolarSystem = () => {
         willChange:"box-shadow",
       }}>
         <img
-          src="/src/Pics/myPic.jpg"
+          src={myPic}
           alt="Keerthana R"
           style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}
         />

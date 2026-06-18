@@ -1,7 +1,7 @@
 import React from 'react'
 import "./CSS/Projects.css"
-import boot from "./Pics/boot.svg"
-import react from "./Pics/react.svg"
+import boot from "./assets/boot.svg"
+import react from "./assets/react.svg"
 // import react from "./Pics/react.svg"
 const Projects = () => {
     let gitJava = ()=>{

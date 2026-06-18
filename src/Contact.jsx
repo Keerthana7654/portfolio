@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import "./CSS/Contact.css"
-import mail from "./Pics/mail.svg"
-import linkedin from "./Pics/linkedin.svg"
-import call from "./Pics/call.svg"
-import location from "./Pics/location.svg"
+import mail from "./assets/mail.svg"
+import linkedin from "./assets/linkedin.svg"
+import call from "./assets/call.svg"
+import location from "./assets/location.svg"
 
 const Contact = () => {
     const [yourName, setName] = useState("");
