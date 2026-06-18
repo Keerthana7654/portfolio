@@ -1,0 +1,105 @@
+#homeDiv {
+    /* background-image: linear-gradient(to bottom left, rgb(0, 0, 0) 50%, rgb(162, 0, 0)); */
+    width: 100rem;
+    height: 40rem;
+    padding-top: 3rem;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+
+}
+
+#change {
+    position: relative;
+}
+
+#names {
+    font-size: 70px;
+}
+
+#names:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    background-color: #370001;
+    border-left: 2px solid rgb(162, 0, 0);
+    animation: animee 4s linear infinite;
+}
+
+@keyframes animee {
+
+    40%,
+    60% {
+        left: 100%;
+    }
+
+    100% {
+        left: 0%;
+
+    }
+}
+
+#aside1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 72vh;
+    width: 60vw;
+    margin-top: 60px;
+    row-gap: 20px;
+}
+
+#icons {
+    display: flex;
+}
+
+.text {
+    font-size: 15px;
+    opacity: calc(0.8);
+}
+
+aside div li {
+    list-style: none;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+#CVbtn {
+    font-size: large;
+    font-weight: 100;
+    border: 2px solid red;
+    padding: 12px 27px;
+    color: red;
+    margin: 20px 0px;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: all 0.7s ease-in-out;
+}
+
+#CVbtn:hover {
+    color: white;
+    box-shadow: 0px 0px 14px 8px rgb(162, 0, 0);
+    cursor: pointer;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
+    transition: all ease-in-out 0.9s;
+}
+
+.icon:hover {
+    background-color: red;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+#myPic {
+    box-shadow: 0px 0px 30px 8px rgb(234, 255, 4);
+    border: 2px solid yellow;
+}
