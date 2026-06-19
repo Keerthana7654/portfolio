@@ -9,6 +9,22 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+<<<<<<< HEAD
+=======
+import myPic from "./assets/myPic.jpg";
+import instagram from "./assets/instagram.svg"
+import linkedin from "./assets/linkedin.svg"
+import mail from "./assets/mail.svg"
+import call from "./assets/call.svg"
+import location from "./assets/location.svg"
+import boot from "./assets/boot.svg"
+import react from "./assets/react.svg"
+import java from "./assets/java.svg"
+import sql from "./assets/sql.svg"
+import js from "./assets/js.png"
+import css from "./assets/css.svg"
+
+>>>>>>> 03995d10fa3dcc1585b5433e3b7c0ebe3e87974d
 
 /* ─────────────────────────────────────────────────────────
    DESIGN TOKENS (CSS-in-JS — inline for portability)
