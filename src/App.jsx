@@ -451,7 +451,7 @@ const SolarSystem = () => {
         willChange:"box-shadow",
       }}>
         <img
-          src="/src/Pics/myPic.jpg"
+          src="./assets/myPic.jpg"
           alt="Keerthana R."
           style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}
         />
