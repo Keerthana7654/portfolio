@@ -9,8 +9,6 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-<<<<<<< HEAD
-=======
 import myPic from "./assets/myPic.jpg";
 import instagram from "./assets/instagram.svg"
 import linkedin from "./assets/linkedin.svg"
@@ -24,7 +22,6 @@ import sql from "./assets/sql.svg"
 import js from "./assets/js.png"
 import css from "./assets/css.svg"
 
->>>>>>> 03995d10fa3dcc1585b5433e3b7c0ebe3e87974d
 
 /* ─────────────────────────────────────────────────────────
    DESIGN TOKENS (CSS-in-JS — inline for portability)
