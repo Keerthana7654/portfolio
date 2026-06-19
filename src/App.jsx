@@ -436,26 +436,34 @@ const SolarSystem = () => {
       ))}
 
       {/* ── Center photo — always on top ── */}
-      <div style={{
-        position:"absolute",
-        width:  PHOTO,
-        height: PHOTO,
-        top:  cy - PHOTO / 2,
-        left: cx - PHOTO / 2,
-        borderRadius:"50%",
-        border:"2px solid #E63329",
-        boxShadow:"0 0 30px rgb(162,0,0), 0 0 70px rgba(162,0,0,0.3)",
-        overflow:"hidden",
-        zIndex: 20,
-        animation:"glow-pulse 4s ease-in-out infinite",
-        willChange:"box-shadow",
-      }}>
-        <img
-          src={myPic}
-          alt="Keerthana R."
-          style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}
-        />
-      </div>
+     <div style={{
+  position:"absolute",
+  width: PHOTO,
+  height: PHOTO,
+  top: cy - PHOTO / 2,
+  left: cx - PHOTO / 2,
+  borderRadius:"50%",
+  border:"2px solid #E63329",
+  boxShadow:"0 0 30px rgb(162,0,0), 0 0 70px rgba(162,0,0,0.3)", // static, no animation
+  overflow:"hidden",
+  zIndex: 20,
+}}>
+  {/* Pulsing glow layer — animates opacity only, GPU-composited */}
+  <div style={{
+    position:"absolute",
+    inset:-20,
+    borderRadius:"50%",
+    background:"radial-gradient(circle, rgba(230,51,41,0.5) 0%, transparent 70%)",
+    animation:"glow-pulse-opacity 4s ease-in-out infinite",
+    willChange:"opacity",
+    zIndex:-1,
+  }} />
+  <img
+    src={myPic}
+    alt="Keerthana R."
+    style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}
+  />
+</div>
 
       {/* ── Orbit arms ── */}
       {techs.map((t) => {
