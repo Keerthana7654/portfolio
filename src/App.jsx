@@ -401,12 +401,12 @@ const SolarSystem = () => {
 
   // radii: distance from center to icon center
   const techs = [
-    { id:"java",  label:"Java",       src:"/src/Pics/java.svg",  radius:200, dur:"120s", cw:true,  z:1 },
-    { id:"sql",   label:"SQL",        src:"/src/Pics/sql.svg",   radius:168, dur:"95s",  cw:false, z:2 },
-    { id:"react", label:"React",      src:"/src/Pics/react.svg", radius:138, dur:"75s",  cw:true,  z:3 },
-    { id:"js",    label:"JS",         src:"/src/Pics/js.png",    radius:110, dur:"38s",  cw:false, z:4 },
-    { id:"boot",  label:"Spring",     src:"/src/Pics/boot.svg",  radius:82,  dur:"22s",  cw:true,  z:5 },
-    { id:"css",   label:"CSS",        src:"/src/Pics/css.svg",   radius:56,  dur:"14s",  cw:false, z:6 },
+    { id:"java",  label:"Java",       src:"./assets/java.svg",  radius:200, dur:"120s", cw:true,  z:1 },
+    { id:"sql",   label:"SQL",        src:"./assets/sql.svg",   radius:168, dur:"95s",  cw:false, z:2 },
+    { id:"react", label:"React",      src:"./assets/react.svg", radius:138, dur:"75s",  cw:true,  z:3 },
+    { id:"js",    label:"JS",         src:"./assets/js.png",    radius:110, dur:"38s",  cw:false, z:4 },
+    { id:"boot",  label:"Spring",     src:"./assets/boot.svg",  radius:82,  dur:"22s",  cw:true,  z:5 },
+    { id:"css",   label:"CSS",        src:"./assets/css.svg",   radius:56,  dur:"14s",  cw:false, z:6 },
   ];
 
   const cx = WRAP / 2; // 210 — center x
