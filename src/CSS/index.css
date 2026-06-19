@@ -3,7 +3,7 @@
 /* ── RESET ── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-body { font-family:'DM Sans',sans-serif; background:#0d0002; color:#f5f0f0; overflow-x:hidden; }
+body { font-family:'DM Sans',sans-serif; background:#0d0002; color:#f5f0f0; overflow-x:hidden; cursor:none; }
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width:3px; }
@@ -49,12 +49,13 @@ body { font-family:'DM Sans',sans-serif; background:#0d0002; color:#f5f0f0; over
 @keyframes glow-pulse  { 0%,100%{box-shadow:0 0 20px rgba(162,0,0,0.3)} 50%{box-shadow:0 0 60px rgba(162,0,0,0.7),0 0 100px rgba(230,51,41,0.3)} }
 
 /* ── NAV ── */
+.nav-header { padding: 0 3rem; }
 .nav-link-item {
   position:relative;
   font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:500;
   letter-spacing:0.12em; text-transform:uppercase;
   color:rgba(245,240,240,0.45);
-  background:none; border:none; ;
+  background:none; border:none; cursor:none;
   padding:0.4rem 0; transition:color 0.2s;
 }
 .nav-link-item:hover, .nav-link-item.nav-active { color:#f5f0f0; }
@@ -67,7 +68,7 @@ body { font-family:'DM Sans',sans-serif; background:#0d0002; color:#f5f0f0; over
   letter-spacing:0.1em; text-transform:uppercase;
   color:#E63329; padding:0.55rem 1.4rem;
   border:1px solid rgba(230,51,41,0.25); border-radius:100px;
-  background:rgba(230,51,41,0.1);  transition:all 0.3s;
+  background:rgba(230,51,41,0.1); cursor:none; transition:all 0.3s;
 }
 .nav-resume-btn:hover {
   background:#E63329; color:#fff;
@@ -88,26 +89,63 @@ body { font-family:'DM Sans',sans-serif; background:#0d0002; color:#f5f0f0; over
   background:rgba(230,51,41,0.1) !important;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width:1024px) {
-  .hero-grid { grid-template-columns:1fr !important; text-align:center; padding:7rem 3rem 4rem !important; }
-  .hero-grid .hero-right { order:-1; height:380px !important; }
-  .hero-stats, .hero-ctas, .hero-socials { justify-content:center; }
-  .hero-bio, .hero-status { margin-inline:auto; }
-  .about-grid { grid-template-columns:1fr !important; gap:2.5rem !important; }
-  .contact-grid { grid-template-columns:1fr !important; gap:2.5rem !important; }
-  .section-pad { padding:6rem 3rem !important; }
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE — breakpoints: 1024px (tablet), 768px (mobile),
+   480px (small mobile). Class names below match className
+   props actually present on elements in App.jsx.
+════════════════════════════════════════════════════════ */
+
+/* ── Tablet & below: stack hero, about, contact into single column ── */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    padding: 7rem 3rem 4rem !important;
+    gap: 2.5rem !important;
+  }
+  .hero-grid .hero-right { order: -1; height: 380px !important; }
+  .hero-stats, .hero-ctas, .hero-socials { justify-content: center; }
+  .hero-bio, .hero-status { margin-inline: auto; }
+
+  .about-grid   { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+  .contact-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+  .section-pad  { padding: 6rem 3rem !important; }
 }
-@media (max-width:768px) {
-  .project-card-grid { grid-template-columns:1fr !important; }
-  .proj-visual { min-height:160px; border-right:none !important; border-bottom:1px solid rgba(255,255,255,0.06) !important; }
-  .achievement-grid { grid-template-columns:1fr !important; }
-  .hero-name-size { font-size:5rem !important; }
-  nav { padding:0 1.5rem !important; }
-  .section-pad { padding:5rem 1.5rem !important; }
+
+/* ── Mobile: switch nav to hamburger, stack project cards ── */
+@media (max-width: 768px) {
+  /* Nav: hide desktop links + resume button, show hamburger */
+  .nav-links-desktop,
+  .nav-resume-desktop {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: flex !important;
+  }
+  header.nav-header { padding: 0 1.25rem !important; }
+
+  .project-card-grid { grid-template-columns: 1fr !important; }
+  .proj-visual {
+    min-height: 160px;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  }
+
+  .achievement-grid { grid-template-columns: 1fr !important; }
+  .hero-name-size    { font-size: 4.2rem !important; }
+  .section-pad       { padding: 5rem 1.25rem !important; }
+
+  /* Solar system shrinks to fit narrower viewports */
+  .hero-right > div { transform: scale(0.72); }
 }
-@media (max-width:480px) {
-  .form-row { grid-template-columns:1fr !important; }
-  .hero-ctas { flex-direction:column; align-items:center; }
-  .hero-stats { gap:1.25rem !important; }
+
+/* ── Small mobile: tighten forms, stack CTAs and stats ── */
+@media (max-width: 480px) {
+  .form-row    { grid-template-columns: 1fr !important; }
+  .hero-ctas   { flex-direction: column; align-items: center; }
+  .hero-stats  { gap: 1.25rem !important; flex-wrap: wrap; justify-content: center; }
+  .hero-name-size { font-size: 3.4rem !important; }
+  .hero-right > div { transform: scale(0.58); }
+  header.nav-header { padding: 0 1rem !important; }
+  .nav-drawer { padding: 1rem 1.25rem 1.5rem !important; }
 }

@@ -9,19 +9,6 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import myPic from "./assets/myPic.jpg";
-import instagram from "./assets/instagram.svg"
-import linkedin from "./assets/linkedin.svg"
-import mail from "./assets/mail.svg"
-import call from "./assets/call.svg"
-import location from "./assets/location.svg"
-import boot from "./assets/boot.svg"
-import react from "./assets/react.svg"
-import java from "./assets/java.svg"
-import sql from "./assets/sql.svg"
-import js from "./assets/js.png"
-import css from "./assets/css.svg"
-
 
 /* ─────────────────────────────────────────────────────────
    DESIGN TOKENS (CSS-in-JS — inline for portability)
@@ -201,9 +188,18 @@ const Nav = ({ scrollTo, active }) => {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  // Lock body scroll while the mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  // Close the drawer automatically if the viewport grows back to desktop width
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 768) setOpen(false); };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const links = ["Home", "About", "Projects", "Contact"];
 
@@ -211,12 +207,21 @@ const Nav = ({ scrollTo, active }) => {
     position: "fixed", top: 0, left: 0, right: 0,
     zIndex: 9000,
     display: "flex", alignItems: "center", justifyContent: "space-between",
-    padding: "0 3rem",
     height: "4.5rem",
-    background: scrolled ? "rgba(13,0,2,0.85)" : "transparent",
-    backdropFilter: scrolled ? "blur(20px)" : "none",
-    borderBottom: scrolled ? `1px solid ${T.border}` : "none",
-    transition: "background 0.5s, border-color 0.5s, backdrop-filter 0.5s",
+    background: scrolled || open ? "rgba(13,0,2,0.92)" : "transparent",
+    backdropFilter: scrolled || open ? "blur(20px)" : "none",
+    borderBottom: scrolled || open ? `1px solid ${T.border}` : "none",
+    transition: "background 0.4s, border-color 0.4s, backdrop-filter 0.4s",
+  };
+
+  const handleNavClick = (sectionId) => {
+    scrollTo(sectionId);
+    setOpen(false);
+  };
+
+  const handleResume = () => {
+    window.open("/src/Resume.pdf", "_blank", "noopener");
+    setOpen(false);
   };
 
   return (
@@ -227,12 +232,69 @@ const Nav = ({ scrollTo, active }) => {
         .nav-link-item.nav-active::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:1px; background:${T.red}; }
         .nav-resume-btn { font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:${T.red}; padding:0.55rem 1.4rem; border:1px solid ${T.redBorder}; border-radius:100px; background:${T.redDim}; cursor:pointer; transition:all 0.3s; }
         .nav-resume-btn:hover { background:${T.red}; color:#fff; box-shadow:0 0 24px ${T.redGlow}; transform:translateY(-1px); }
-        .ham-line { display:block; width:22px; height:1.5px; background:${T.white}; border-radius:1px; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s; }
+
+        /* ── Hamburger button — hidden on desktop, shown on mobile via media query ── */
+        .nav-hamburger {
+          display: none;
+          flex-direction: column;
+          justify-content: center;
+          gap: 5px;
+          width: 36px;
+          height: 36px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 6px;
+          z-index: 9100;
+        }
+        .ham-line {
+          display:block; width:100%; height:1.5px; background:${T.white}; border-radius:1px;
+          transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s, background 0.25s;
+          transform-origin: center;
+        }
+        .nav-hamburger.is-open .ham-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background:${T.red}; }
+        .nav-hamburger.is-open .ham-line:nth-child(2) { opacity: 0; }
+        .nav-hamburger.is-open .ham-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background:${T.red}; }
+
+        /* ── Mobile drawer — hidden on desktop ── */
+        .nav-drawer {
+          position: fixed;
+          top: 4.5rem; left: 0; right: 0;
+          z-index: 8999;
+          background: rgba(13,0,2,0.97);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid ${T.border};
+          display: flex;
+          flex-direction: column;
+          padding: 1rem 2rem 2rem;
+          gap: 0.25rem;
+          transform: translateY(-12px);
+          opacity: 0;
+          pointer-events: none;
+          visibility: hidden;
+          transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+        }
+        .nav-drawer.is-open {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+          visibility: visible;
+        }
+        .nav-drawer .nav-link-item {
+          width: 100%;
+          text-align: left;
+          padding: 0.9rem 0;
+          font-size: 0.95rem;
+          border-bottom: 1px solid ${T.border};
+        }
+        .nav-drawer .nav-link-item.nav-active::after { display:none; }
+        .nav-drawer .nav-link-item.nav-active { color:${T.red}; }
+        .nav-drawer .nav-resume-btn { margin-top: 1rem; text-align:center; }
       `}</style>
 
-      <header style={navStyle}>
+      <header className="nav-header" style={navStyle}>
         {/* Logo */}
-        <button onClick={() => scrollTo("home")} style={{ font:"inherit", background:"none", border:"none", cursor:"pointer", display:"flex", alignItems:"center", gap:"0.5rem" }}>
+        <button onClick={() => handleNavClick("home")} style={{ font:"inherit", background:"none", border:"none", cursor:"pointer", display:"flex", alignItems:"center", gap:"0.5rem" }}>
           {/* Tiny solar system logo */}
           <div style={{ position:"relative", width:28, height:28 }}>
             <div style={{ position:"absolute", inset:0, borderRadius:"50%", border:`1px solid ${T.redBorder}`, animation:"spin-slow 8s linear infinite" }} />
@@ -244,22 +306,52 @@ const Nav = ({ scrollTo, active }) => {
           </span>
         </button>
 
-        {/* Desktop links */}
-        <nav style={{ display:"flex", gap:"2.5rem" }} aria-label="Main navigation">
+        {/* Desktop links — hidden on mobile via media query */}
+        <nav className="nav-links-desktop" style={{ display:"flex", gap:"2.5rem" }} aria-label="Main navigation">
           {links.map((l) => (
             <button key={l} className={`nav-link-item${active === l.toLowerCase() ? " nav-active" : ""}`}
-              onClick={() => scrollTo(l.toLowerCase())}>
+              onClick={() => handleNavClick(l.toLowerCase())}>
               {l}
             </button>
           ))}
         </nav>
 
-        <button className="nav-resume-btn" onClick={() => window.open("/src/Resume.pdf", "_blank", "noopener")}>
+        {/* Resume button — hidden on mobile via media query */}
+        <button className="nav-resume-btn nav-resume-desktop" onClick={handleResume}>
           Resume ↓
+        </button>
+
+        {/* Hamburger — hidden on desktop, shown on mobile via media query */}
+        <button
+          className={`nav-hamburger${open ? " is-open" : ""}`}
+          onClick={() => setOpen((o) => !o)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-nav-drawer"
+        >
+          <span className="ham-line" />
+          <span className="ham-line" />
+          <span className="ham-line" />
         </button>
       </header>
 
-      {/* Mobile drawer omitted for brevity — add if needed */}
+      {/* Mobile drawer */}
+      <nav
+        id="mobile-nav-drawer"
+        className={`nav-drawer${open ? " is-open" : ""}`}
+        aria-label="Mobile navigation"
+        aria-hidden={!open}
+      >
+        {links.map((l) => (
+          <button key={l} className={`nav-link-item${active === l.toLowerCase() ? " nav-active" : ""}`}
+            onClick={() => handleNavClick(l.toLowerCase())}>
+            {l}
+          </button>
+        ))}
+        <button className="nav-resume-btn" onClick={handleResume}>
+          Resume ↓
+        </button>
+      </nav>
     </>
   );
 };
@@ -291,7 +383,7 @@ const SolarSystem = () => {
    * hacks, no margin tricks that break on resize.
    */
   const WRAP = 420;  // container square size px
-  const PHOTO = 90; // photo diameter px
+  const PHOTO = 130; // photo diameter px
   const ICON = 48;   // icon pill size px
 
   // radii: distance from center to icon center
@@ -346,8 +438,8 @@ const SolarSystem = () => {
         willChange:"box-shadow",
       }}>
         <img
-          src={myPic}
-          alt="Keerthana R"
+          src="/src/Pics/myPic.jpg"
+          alt="Keerthana R."
           style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}
         />
       </div>
@@ -422,7 +514,6 @@ const SolarSystem = () => {
     </div>
   );
 };
-
 
 /* ─────────────────────────────────────────────────────────
    HERO
@@ -533,18 +624,18 @@ const Hero = ({ sectionRef, scrollTo }) => {
   };
 
   return (
-    <section ref={sectionRef} id="home" style={s.section} aria-label="Introduction">
+    <section ref={sectionRef} id="home" className="hero-grid" style={s.section} aria-label="Introduction">
 
       {/* Left */}
-      <div>
+      <div className="hero-left">
         {/* Status */}
-        <div style={s.statusPill}>
+        <div className="hero-status" style={s.statusPill}>
           <span style={{ width:6, height:6, borderRadius:"50%", background:T.red, display:"block", animation:"pulse-dot 2s ease-in-out infinite" }} />
           Available for opportunities
         </div>
 
         {/* Name */}
-        <h1 style={s.name}>
+        <h1 className="hero-name-size" style={s.name}>
           <span>Keerthana</span><br />
           <span style={s.nameAccent}>R.</span>
         </h1>
@@ -555,14 +646,14 @@ const Hero = ({ sectionRef, scrollTo }) => {
         </div>
 
         {/* Bio */}
-        <p style={s.bio}>
+        <p className="hero-bio" style={s.bio}>
           MCA student at Bangalore University. I craft scalable Java backends with
           Spring Boot and ship polished React interfaces. Two projects shipped,
           real problems solved.
         </p>
 
         {/* CTAs */}
-        <div style={s.ctaRow}>
+        <div className="hero-ctas" style={s.ctaRow}>
           <PrimaryBtn onClick={() => scrollTo("contact")}>Hire Me →</PrimaryBtn>
           <GhostBtn onClick={() => window.open("https://github.com/Keerthana7654", "_blank", "noopener")}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ marginRight:6 }}>
@@ -573,7 +664,7 @@ const Hero = ({ sectionRef, scrollTo }) => {
         </div>
 
         {/* Social icons */}
-        <div style={{ display:"flex", gap:"0.7rem", marginBottom:"2rem" }}>
+        <div className="hero-socials" style={{ display:"flex", gap:"0.7rem", marginBottom:"2rem" }}>
           {[
             { label:"LinkedIn", url:"https://www.linkedin.com/in/keerthana-r-8a19a3340", icon:<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>, extra:<circle cx="4" cy="4" r="2"/> },
             { label:"Instagram", url:"https://www.instagram.com/ll__keerthana__ll", icon:<><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" strokeWidth="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" strokeWidth="2"/></> },
@@ -591,7 +682,7 @@ const Hero = ({ sectionRef, scrollTo }) => {
         </div>
 
         {/* Stats */}
-        <div style={s.statRow}>
+        <div className="hero-stats" style={s.statRow}>
           {[["2", "Projects Built"], ["8.92", "BCA CGPA"], ["8.18", "MCA CGPA"], ["6+", "Technologies"]].map(([v, l]) => (
             <div key={l}>
               <div style={s.statNum}>{v}</div>
@@ -602,7 +693,7 @@ const Hero = ({ sectionRef, scrollTo }) => {
       </div>
 
       {/* Right — Solar system */}
-      <div style={s.rightCol}>
+      <div className="hero-right" style={s.rightCol}>
         <SolarSystem />
       </div>
 
@@ -691,7 +782,7 @@ const About = ({ sectionRef }) => {
 }`;
 
   return (
-    <section ref={sectionRef} id="about" style={{
+    <section ref={sectionRef} id="about" className="section-pad" style={{
       position:"relative", zIndex:1,
       padding:"8rem 6rem",
       maxWidth:1400, margin:"0 auto",
@@ -702,7 +793,7 @@ const About = ({ sectionRef }) => {
         subtitle="Full-stack engineering across the Java ecosystem and modern JS frameworks — from database schema to pixel-perfect UI."
       />
 
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1.6fr", gap:"4rem", alignItems:"start" }}>
+      <div className="about-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1.6fr", gap:"4rem", alignItems:"start" }}>
 
         {/* Left — bio + edu + code snippet */}
         <div className="reveal">
@@ -802,7 +893,7 @@ const About = ({ sectionRef }) => {
           ))}
 
           {/* Achievements */}
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap:"0.75rem" }}>
+          <div className="achievement-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap:"0.75rem" }}>
             {[
               { icon:"🏆", title:"Runner-up", sub:"Crackathon — Surana College" },
               { icon:"📜", title:"Certified", sub:"Full Stack Java — JSpiders" },
@@ -869,7 +960,7 @@ const PROJECTS = [
 ];
 
 const Projects = ({ sectionRef }) => (
-  <section ref={sectionRef} id="projects" style={{
+  <section ref={sectionRef} id="projects" className="section-pad" style={{
     position:"relative", zIndex:1,
     padding:"8rem 6rem",
     background:`linear-gradient(to bottom, transparent, rgba(26,0,3,0.4), transparent)`,
@@ -908,7 +999,7 @@ const ProjectCard = ({ project: p, delay }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div style={{
+      <div className="project-card-grid" style={{
         display:"grid", gridTemplateColumns:"280px 1fr",
         background:T.bgCard,
         border:`1px solid ${hovered ? T.redBorder : T.border}`,
@@ -921,7 +1012,7 @@ const ProjectCard = ({ project: p, delay }) => {
       }}>
 
         {/* Visual panel */}
-        <div style={{
+        <div className="proj-visual" style={{
           background:`linear-gradient(135deg, rgba(26,0,3,0.9), rgba(162,0,0,0.08))`,
           borderRight:`1px solid ${T.border}`,
           display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
@@ -1049,7 +1140,7 @@ const Contact = ({ sectionRef }) => {
   };
 
   return (
-    <section ref={sectionRef} id="contact" style={{
+    <section ref={sectionRef} id="contact" className="section-pad" style={{
       position:"relative", zIndex:1,
       padding:"8rem 6rem",
       maxWidth:1400, margin:"0 auto",
@@ -1060,7 +1151,7 @@ const Contact = ({ sectionRef }) => {
         subtitle="Open to full-time roles, internships, and collaboration. I reply within 24 hours."
       />
 
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1.5fr", gap:"4rem", alignItems:"start" }}>
+      <div className="contact-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1.5fr", gap:"4rem", alignItems:"start" }}>
 
         {/* Left info */}
         <div className="reveal">
@@ -1118,7 +1209,7 @@ const Contact = ({ sectionRef }) => {
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate style={{ display:"flex", flexDirection:"column", gap:"1.1rem" }}>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1rem" }}>
+                <div className="form-row" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1rem" }}>
                   {[["name","Name","Your name"],["email","Email","your@email.com"]].map(([n,l,p]) => (
                     <div key={n}>
                       <label style={labelStyle} htmlFor={`c-${n}`}>{l} *</label>
@@ -1218,7 +1309,7 @@ const Footer = () => (
   }}>
     Designed &amp; built by{" "}
     <span style={{ color:T.red }}>Keerthana R.</span>
-    {" "}·{" "}{new Date().getFullYear()}{" "}·{" "}React + ❤️ 
+    {" "}·{" "}{new Date().getFullYear()}{" "}·{" "}React + ❤️
   </footer>
 );
 
