@@ -396,7 +396,7 @@ const SolarSystem = () => {
    * hacks, no margin tricks that break on resize.
    */
   const WRAP = 420;  // container square size px
-  const PHOTO = 130; // photo diameter px
+  const PHOTO = 90; // photo diameter px
   const ICON = 48;   // icon pill size px
 
   // radii: distance from center to icon center
