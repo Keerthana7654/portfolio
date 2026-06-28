@@ -37,7 +37,7 @@ const T = {
   crimson:    "rgb(162,0,0)", // original glow color — kept
   white:      "#f5f0f0",
   muted:      "rgba(245,240,240,0.45)",
-  faint:      "rgba(245,240,240,0.12)",
+  faint:      "rgba(245,240,240,0.9)",
   border:     "rgba(255,255,255,0.06)",
   borderHov:  "rgba(255,255,255,0.14)",
   gold:       "#f5c842",
@@ -959,25 +959,36 @@ const PROJECTS = [
     featured:true,
   },
   {
-    num:"02", icon:"🧠", tag:"AI / ML", year:"2024",
+    num:"02", icon:"🧠", tag:"AI / ML", year:"2025",
     name:"AI-Driven Emotion Adaptive Gaming UI",
     problem:"Emotional state impacts gameplay performance — yet no gaming UI dynamically adapts its theme and experience to the player's real-time mood.",
     solution:"Integrated face-api.js deep learning models with React for webcam-based emotion detection. Built confidence-threshold + temporal-smoothing logic to suppress false positives (–40%). Spring Boot REST APIs manage game state.",
     outcome:"<300ms detection latency · False-positive suppression –40% · Adaptive dynamic theming",
     tech:["React JS","face-api.js","Spring Boot","REST APIs","JavaScript"],
-    github:"https://github.com/Keerthana7654/AI-Emotion-Adaptive-UI-Dynamic-Frontend-that-changes-based-on-user-mood-",
+    github:"https://keerthana7654.github.io/emotion-adaptive-ui",
     featured:true,
   },
   {
-    num:"03", icon:"🌌", tag:"Personal Project", year:"2025",
+    num: "03", icon: "📝", tag: "Todoist", year: "2026",
+    name: "TaskFlow",
+    problem: "Most fresher portfolios show isolated CRUD demos with no real auth or deployment — making it hard to prove you can ship something production-ready, not just code that runs locally.",
+    solution: "Built a full-stack task manager with JWT authentication, role-based access control (admin vs user), Flyway-versioned MySQL migrations, and a React frontend with protected routes and automatic token handling.",
+    outcome: "24 automated tests passing · Dockerized & live-deployed · Real bugs debugged and fixed",
+    tech: ["React JS", "Spring Boot", "Spring Security", "MySQL", "JWT", "Docker"],
+    github: "https://task-flow08.netlify.app",
+    featured: true,
+  },
+  {
+    num:"04", icon:"🌌", tag:"Personal Project", year:"2026",
     name:"Developer Portfolio v2",
     problem:"Generic templates fail to communicate technical depth or personal brand — they look identical to every other student portfolio.",
     solution:"Designed and built a fully custom React portfolio from scratch — cosmic identity, CSS design tokens, IntersectionObserver scroll reveals, custom cursor, typewriter hero, and WCAG AA accessibility.",
     outcome:"100% custom · Zero templates · WCAG AA",
     tech:["React JS","CSS Custom Properties","Vite","Responsive Design"],
-    github:"https://github.com/Keerthana7654",
+    github:"https://keerthana7654.github.io/portfolio",
     featured:false,
   },
+  
 ];
 
 const Projects = ({ sectionRef }) => (
@@ -1054,7 +1065,7 @@ const ProjectCard = ({ project: p, delay }) => {
             transition:"transform 0.35s",
             transform:hovered ? "scale(1.1) rotate(-4deg)" : "none",
           }}>{p.icon}</div>
-          <div style={{ fontFamily:T.fontDisplay, fontSize:"3.5rem", color:"rgba(230,51,41,0.06)", position:"absolute", bottom:8, right:12, lineHeight:1, userSelect:"none" }}>{p.num}</div>
+          <div style={{ fontFamily:T.fontDisplay, fontSize:"3.5rem", color:"rgba(230,51,41,0.5)", position:"absolute", bottom:8, right:12, lineHeight:1, userSelect:"none" }}>{p.num}</div>
         </div>
 
         {/* Content */}
