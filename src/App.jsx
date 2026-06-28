@@ -637,7 +637,7 @@ const Hero = ({ sectionRef, scrollTo }) => {
       display:"flex", alignItems:"center", justifyContent:"center",
     },
     scrollLine: {
-      position:"absolute", bottom:"3rem", left:"50%", transform:"translateX(-50%)",
+      position:"absolute", bottom:"-1rem", left:"50%", transform:"translateX(-50%)",
       display:"flex", flexDirection:"column", alignItems:"center", gap:8,
       color:T.faint, fontSize:"0.6rem", letterSpacing:"0.15em", textTransform:"uppercase",
       fontFamily:T.fontBody,
@@ -704,7 +704,7 @@ const Hero = ({ sectionRef, scrollTo }) => {
 
         {/* Stats */}
         <div className="hero-stats" style={s.statRow}>
-          {[["2", "Projects Built"], ["8.92", "BCA CGPA"], ["8.18", "MCA CGPA"], ["6+", "Technologies"]].map(([v, l]) => (
+          {[["3", "Projects Built"], ["8.92", "BCA CGPA"], ["8.18", "MCA CGPA"], ["6+", "Technologies"]].map(([v, l]) => (
             <div key={l}>
               <div style={s.statNum}>{v}</div>
               <div style={s.statLabel}>{l}</div>
@@ -719,7 +719,7 @@ const Hero = ({ sectionRef, scrollTo }) => {
       </div>
 
       {/* Scroll indicator */}
-      <div style={s.scrollLine} aria-hidden="true">
+      <div style={s.scrollLine} aria-hidden="true" id="scroll-indicator">
         <div style={{ width:1, height:50, background:`linear-gradient(to bottom, ${T.red}, transparent)`, animation:"scroll-drip 2s ease-in-out infinite" }} />
         <span>scroll</span>
       </div>
