@@ -844,8 +844,8 @@ const About = ({ sectionRef }) => {
               Education
             </div>
             {[
-              { deg:"MCA (Pursuing)", school:"G.T. College, Bangalore University", meta:"CGPA 8.18 · 2024–2026" },
-              { deg:"BCA", school:"Vasavi Jnana Peetha FGC, Bangalore University", meta:"CGPA 8.92 · 2021–2024" },
+              { deg:"MCA (Pursuing)", school:"G.T. College, Bangalore University", meta:"CGPA 8.18 · 2025–2026" },
+              { deg:"BCA", school:"Vasavi Jnana Peetha FGC, Bangalore University", meta:"CGPA 8.92 · 2022–2024" },
             ].map((e) => (
               <div key={e.deg} style={{ marginBottom:"1rem", paddingLeft:"1rem", borderLeft:`2px solid ${T.redBorder}` }}>
                 <div style={{ fontFamily:T.fontBody, fontWeight:500, fontSize:"1rem", color:T.white }}>{e.deg}</div>
