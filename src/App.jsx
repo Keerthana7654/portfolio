@@ -668,7 +668,9 @@ const Hero = ({ sectionRef, scrollTo }) => {
 
         {/* Bio */}
         <p className="hero-bio" style={s.bio}>
-          MCA student at Bangalore University. I craft scalable Java backends with
+          "Currently open to SWE roles, Available immediately"
+          MCA student at Bangalore University(Final semester: internship (completed) and capstone project only — no further coursework, immediately available.)
+          I craft scalable Java backends with
           Spring Boot and ship polished React interfaces. Two projects shipped,
           real problems solved.
         </p>
@@ -1122,7 +1124,7 @@ const ProjectCard = ({ project: p, delay }) => {
               </svg> GitHub
             </a>
           </div>)}
-          {p.num!="01"&&(<div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem", flexWrap: "wrap" }}>
+          {p.num != "01" && (<div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem", flexWrap: "wrap" }}>
             <a href={p.github} target="_blank" rel="noopener noreferrer"
               style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "0.5rem 1.1rem", borderRadius: 100, border: `1px solid ${T.borderHov}`, color: T.muted, fontFamily: T.fontBody, fontSize: "0.88rem", fontWeight: 500, transition: "all 0.2s", textDecoration: "none" }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.white; e.currentTarget.style.color = T.white; }}
