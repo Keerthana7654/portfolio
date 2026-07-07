@@ -625,6 +625,10 @@ const Hero = ({ sectionRef, scrollTo }) => {
       fontSize: "1.1rem", color: T.muted, lineHeight: 1.9,
       maxWidth: "42ch", marginBottom: "2.5rem",
     },
+    bio2:{
+      fontSize: "1.1rem", color: T.muted, lineHeight: 1.9,
+      maxWidth: "42ch",
+    },
     ctaRow: { display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2rem" },
     statRow: {
       display: "flex", gap: "2.5rem", paddingTop: "2rem",
@@ -668,8 +672,8 @@ const Hero = ({ sectionRef, scrollTo }) => {
 
         {/* Bio */}
         <p className="hero-bio" style={s.bio}>
-          "Currently open to SWE roles, Available immediately"
-          MCA student at Bangalore University(Final semester: internship (completed) and capstone project only — no further coursework, immediately available.)
+          <p className="hero-bio" style={s.bio2}>"Currently open to SWE roles, Available immediately"</p>
+          <p className="hero-bio" style={s.bio2}>MCA student at Bangalore University (Final semester: internship [completed] and capstone project only — no further coursework, immediately available.)</p>
           I craft scalable Java backends with
           Spring Boot and ship polished React interfaces. Two projects shipped,
           real problems solved.
