@@ -21,6 +21,7 @@ import java from "./assets/java.svg"
 import sql from "./assets/sql.svg"
 import js from "./assets/js.png"
 import css from "./assets/css.svg"
+import pdf from "./assets/Keerthana_R_Resume.pdf"
 
 
 /* ─────────────────────────────────────────────────────────
@@ -233,7 +234,7 @@ const Nav = ({ scrollTo, active }) => {
   };
 
   const handleResume = () => {
-    window.open("./assets/Resume.pdf", "_blank", "noopener");
+    window.open(pdf, "_blank", "noopener");
     setOpen(false);
   };
 
