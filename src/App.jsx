@@ -233,7 +233,7 @@ const Nav = ({ scrollTo, active }) => {
   };
 
   const handleResume = () => {
-    window.open("/src/Resume.pdf", "_blank", "noopener");
+    window.open("./assets/Resume.pdf", "_blank", "noopener");
     setOpen(false);
   };
 
